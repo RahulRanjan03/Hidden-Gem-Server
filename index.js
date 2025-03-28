@@ -7,7 +7,12 @@ const sys=require('./system.json');
 const app = express();
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const model = genAI.getGenerativeModel({model: 'gemini-1.5-pro'});
-app.use(cors());
+app.use(cors({
+    origin: "*", // Allow all origins
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"]
+}));
+
 app.use(express.json());
 app.post('/generate',async(req,res)=>{
     try {
